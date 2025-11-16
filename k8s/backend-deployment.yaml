@@ -1,0 +1,20 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amazon-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: amazon-backend
+  template:
+    metadata:
+      labels:
+        app: amazon-backend
+    spec:
+      containers:
+        - name: backend
+          image: anishkumar001/amazon-backend:latest
+          ports:
+            - containerPort: 5000

@@ -1,0 +1,65 @@
+openapi: 3.1.0
+
+info:
+  title: DevSecOps Backend API
+  version: 1.0.0
+  description: >
+    OpenAPI specification for the backend service of the DevSecOps E-Commerce project.
+
+servers:
+  - url: http://localhost:5000
+    description: Local development server
+
+paths:
+
+  /:
+    get:
+      summary: Backend root endpoint
+      description: Returns a simple backend status message.
+      responses:
+        '200':
+          description: Success response
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /api/health:
+    get:
+      summary: Health check endpoint
+      description: Returns service health status.
+      responses:
+        '200':
+          description: Health OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+
+  /api/products:
+    get:
+      summary: List all products
+      description: Returns a list of demo products.
+      responses:
+        '200':
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "prod-123"
+                    name:
+                      type: string
+                      example: "Laptop"
+                    price:
+                      type: number
+                      example: 499

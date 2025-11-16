@@ -1,0 +1,20 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amazon-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: amazon-frontend
+  template:
+    metadata:
+      labels:
+        app: amazon-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: anishkumar001/amazon-frontend:latest
+          ports:
+            - containerPort: 80

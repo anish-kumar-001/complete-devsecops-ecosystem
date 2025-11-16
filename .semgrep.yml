@@ -1,0 +1,89 @@
+rules:
+
+  # =============================
+  # FRONTEND (REACT)
+  # =============================
+
+  - id: react-dangerouslysetinnerhtml
+    message: "Avoid dangerouslySetInnerHTML — can cause XSS."
+    severity: WARNING
+    languages: [javascript, typescript]
+    pattern: |
+      <* dangerouslySetInnerHTML={{*}} />
+
+  - id: react-axios-http-to-backend
+    message: "Hardcoded backend URL detected — use environment variables."
+    severity: WARNING
+    languages: [javascript, typescript]
+    patterns:
+      - pattern: axios.get("http://*", ...)
+      - pattern-not: axios.get(process.env.*)
+
+  # =============================
+  # BACKEND (EXPRESS)
+  # =============================
+
+  - id: express-insecure-http-server
+    message: "Express app without HTTPS — ensure TLS in production."
+    severity: INFO
+    languages: [javascript]
+    pattern: |
+      const app = require('express')()
+
+  - id: express-insecure-cors
+    message: "CORS enabled without restrictions (*)."
+    severity: WARNING
+    languages: [javascript]
+    pattern: |
+      app.use(require('cors')())
+
+  - id: express-missing-error-handler
+    message: "Express missing global error-handling middleware."
+    severity: INFO
+    languages: [javascript]
+    pattern: |
+      app.listen($PORT, ...)
+
+  # =============================
+  # GENERIC SECURITY RULES
+  # =============================
+
+  - id: no-eval
+    message: "Avoid eval() — dangerous and unsafe."
+    severity: ERROR
+    languages: [javascript, typescript]
+    pattern: eval(...)
+
+  - id: hardcoded-password
+    message: "Hardcoded password detected — move to environment variable."
+    severity: ERROR
+    languages: [javascript, typescript]
+    patterns:
+      - pattern: $OBJ.password = $VAL
+      - pattern-not: $OBJ.password = process.env.$ENV
+
+  - id: weak-crypto-md5
+    message: "MD5 is insecure — use SHA-256 or stronger."
+    severity: WARNING
+    languages: [javascript, typescript]
+    pattern: |
+      crypto.createHash("md5")
+
+  # =============================
+  # BACKEND API SECURITY
+  # =============================
+
+  - id: express-no-rate-limit
+    message: "API missing rate limiting — consider using express-rate-limit."
+    severity: INFO
+    languages: [javascript]
+    pattern: |
+      app.get("/api/*", ...)
+
+  - id: express-no-input-validation
+    message: "Input fields not validated — consider validation middleware."
+    severity: INFO
+    languages: [javascript]
+    pattern: |
+      app.post("/api/*", (req, res) => {
+        $BODY

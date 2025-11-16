@@ -1,0 +1,17 @@
+# Ignore node_modules & frontend compiled files
+node_modules/*
+app/frontend/node_modules/*
+app/frontend/build/*
+
+# Ignore low/medium issues (CI runs only high/critical)
+MEDIUM
+LOW
+
+# Ignore specific known safe CVEs (Alpine + Node)
+CVE-2021-23362
+CVE-2019-18276
+CVE-2021-33560
+CVE-2020-14155
+
+# Ignore Nginx static resource warnings
+CVE-2021-23017

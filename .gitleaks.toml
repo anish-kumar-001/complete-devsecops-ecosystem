@@ -1,0 +1,53 @@
+title = "Gitleaks Config for DevSecOps E-Commerce Project"
+
+[[rules]]
+id = "aws-access-key"
+description = "AWS Access Key"
+regex = '''AKIA[0-9A-Z]{16}'''
+tags = ["key", "AWS"]
+
+[[rules]]
+id = "aws-secret-key"
+description = "AWS Secret"
+regex = '''(?i)aws(.{0,20})?(secret|access)[_-]?(key)?(.{0,20})?['"][0-9a-zA-Z/+]{40}['"]'''
+tags = ["key", "AWS"]
+
+[[rules]]
+id = "jwt-token"
+description = "JWT Token"
+regex = '''eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9._-]+\.[A-Za-z0-9._-]+'''
+tags = ["jwt", "token"]
+
+[[rules]]
+id = "github-token"
+description = "GitHub PAT"
+regex = '''ghp_[A-Za-z0-9]{30,255}'''
+tags = ["github", "token"]
+
+[[rules]]
+id = "private-key"
+description = "SSH or RSA Private Key"
+regex = '''-----BEGIN(.*?)PRIVATE KEY-----'''
+tags = ["ssh", "rsa", "key"]
+
+[[rules]]
+id = "db-password"
+description = "Database password leak"
+regex = '''(?i)(db|database|sql|mongo)(_)?(pass|password)\s*[:=]\s*['"].+['"]'''
+tags = ["password", "database"]
+
+
+description = "Allowed paths and test files"
+paths = [
+    '''public/''',
+    '''src/assets/''',
+    '''src/data/''',
+    '''app/frontend/public/''',
+    '''app/frontend/src/data/''',
+    '''node_modules/''',
+    '''*.png''',
+    '''*.jpg''',
+    '''*.jpeg''',
+    '''*.gif''',
+    '''package-lock.json'''
+]
