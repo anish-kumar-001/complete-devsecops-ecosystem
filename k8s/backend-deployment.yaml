@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: backend
-          image: anishkumar001/amazon-backend:2
+          image: anishkumar001/amazon-backend:3
           ports:
             - containerPort: 5000
